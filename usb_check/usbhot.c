@@ -20,6 +20,8 @@
 #include "ncsc.h"
 #endif
 
+#include "usb_boot.h"
+
 #define UEVENT_BUFFER_SIZE 2048 
 
 static int init_hotplug_sock() 
