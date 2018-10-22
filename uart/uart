@@ -1,8 +1,0 @@
-<NotepadPlus>
-    <Project name="uart-tools">
-        <File name="md5.c" />
-        <File name="md5.h" />
-        <File name="uart_recv.c" />
-        <File name="uart_send.c" />
-    </Project>
-</NotepadPlus>
