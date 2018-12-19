@@ -1,0 +1,26 @@
+
+// 创建一个Handher
+	void *mp4file = MP4Create(filename, 0);
+	
+//设置MP4时间尺
+MP4SetTimeScale(mp4file, 90000);
+
+
+// 添加一个video track
+	*videotrakid = MP4AddH264VideoTrack(mp4filehandle, 90000, 90000 / 25, 1920, 1080, 
+		spsdata[1],
+		spsdata[2],
+		spsdata[3], 
+		3);
+
+// 设置 sps , pps 和编码level
+	MP4AddH264SequenceParameterSet(mp4filehandle, *videotrakid, (uint8_t*)spsdata, spslength); // sps
+	MP4AddH264PictureParameterSet(mp4filehandle, *videotrakid, (uint8_t*)ppsdata, ppslength); // pps
+	MP4SetVideoProfileLevel(mp4filehandle, 0x7F); // 设置编解码等级
+	
+
+// 写入数据	
+MP4WriteSample(filehandle, tid, (uint8_t*)(pos + size), vpfbuf->vfr[num].vf[count].datasiz, -1, 0,(naltype == 7 || naltype == 5))
+
+
+// 关闭释放数据结构
