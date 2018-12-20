@@ -1,1 +1,4 @@
 *.o
+./image
+*.yuv
+*.jpg
