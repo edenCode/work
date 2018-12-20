@@ -2,6 +2,7 @@
 #include <string.h>
 #include <wchar.h>
 #include <stdlib.h>
+
 int main()
 { 
 	char * ptr = NULL;
