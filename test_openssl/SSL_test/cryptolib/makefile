@@ -17,9 +17,9 @@ LIB_DIR = -L. -L../lib/
 
 LIBS	= -lssl -lcrypto -ldl -lstdc++
 
-SRCS 	= $(wildcard  *.c)
+SRCS 	= $(wildcard  *.cpp)
 #OBJS	= $(subst .cpp,.o,$(SRCS))
-OBJS   += $(subst .c,.o,$(SRCS)) 
+OBJS   += $(subst .cpp,.o,$(SRCS)) 
 
 all:$(OBJS)
 	$(AR) $(LDFLAGS) $(LIB) $(OBJS) 

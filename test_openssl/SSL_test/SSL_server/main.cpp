@@ -37,6 +37,7 @@ int main(int argc,char * argv[])
         {
             ret = s->recv(buffer);
             std::cout<< "Recv : "<< buffer<< " recv len : " << ret << std::endl;
+            sleep(1);
             ret = s->send(buffer);
             std::cout<< "Send : " << buffer<< " Send len : " << ret << std::endl;
 

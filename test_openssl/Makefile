@@ -19,8 +19,10 @@ LIBS =  -lcrypto -lssl -ldl
 all: $(OBJS)
 	$(CC) $(LDFLAGS) $(OBJS) $(INC_DIR) $(LIB_DIR)  $(LIBS) -o main 
 
+clean:
+	rm -f main
+	rm -f *.o
 #Rules
-
 %.o:%.c
 	$(CC) $(CFLAGS) $(INC_DIR) -c $< -o $@
 

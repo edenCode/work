@@ -9,7 +9,7 @@ int main(int argc,char * argv[])
     int ret = -1;
     SSLClient * s;
     //SSLSocket * c = NULL;
-    std::string buffer("dffffffffffffffff");
+    std::string buffer("Hello \n");
     std::string rbuffer;
 
     /*加载openssl*/
@@ -41,6 +41,6 @@ int main(int argc,char * argv[])
 
   
 
-    std::cout << " Server exit \n";
+    std::cout << " Client exit \n";
     return 0;
 }

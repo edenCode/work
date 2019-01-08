@@ -1,6 +1,21 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "cryptolib.h"
+
+#define BLOCK_SIZE (1024 * 2)
+
+
+void parse_x509(X509* x509)
+{
+    printf("\n");
+    BIO *bio_out = BIO_new_fp(stdout, BIO_NOCLOSE);
+    //PEM_write_bio_X509(bio_out, x509);//STD OUT the PEM
+    X509_print(bio_out, x509);//STD OUT the details
+    //X509_print_ex(bio_out, x509, XN_FLAG_COMPAT, X509_FLAG_COMPAT);//STD OUT the details
+    BIO_free(bio_out);
+}
+
 int base_hex_encode(void* str, int strlen, char *ascii)
 {
     if(strlen == 0|| str== NULL || ascii==NULL)
@@ -18,8 +33,7 @@ int base_hex_encode(void* str, int strlen, char *ascii)
 
     for( i = 0; i < strlen; ++i)
     {
-        if(p2[i] != '\0')
-        {
+
             h = p2[i] / 16;
             l = p2[i] % 16;
 
@@ -27,18 +41,16 @@ int base_hex_encode(void* str, int strlen, char *ascii)
             j ++;
             p1[j] = dict[l];
             j ++;
-        }
-        else
-            break;
+      
     }
-    p1[j]  =0x00;
+    p1[j - 2]  =0x00;
     return j;
 }
 
-int base_md5_encode(const char * in,int insize,char * out)
+int base_md5_encode(const char * in,int insize,unsigned char * out)
 {
     int ret = -1;
-    char * ptr = in;
+    char * ptr = (char *)in;
     MD5_CTX ctx;
     int nums = 1,left = 0; 
     if(!in || !out)
@@ -74,8 +86,42 @@ int base_md5_encode(const char * in,int insize,char * out)
 }
 
 
-int base_sha256_encode(const char * in,int insize,char * out)
+int base_sha256_encode(const char * in,int insize,unsigned char * out)
 {
+    int ret = -1;
+    char * ptr =(char *) in;
+    SHA256_CTX ctx;
+    int nums = 1,left = 0; 
+    if(!in || !out)
+    {
+        return -1;
+    }
+
+    SHA256_Init(&ctx);
+
+    if(insize > BLOCK_SIZE)
+    {
+        nums = insize / BLOCK_SIZE;
+        left = insize % BLOCK_SIZE;
+    }
+
+    if(nums == 1)
+        SHA256_Update(&ctx,ptr,insize);
+    else if(nums > 2)
+    {
+        while(nums --)
+        {
+            SHA256_Update(&ctx,ptr,BLOCK_SIZE);
+            ptr += BLOCK_SIZE;
+        }
+
+        if(left)
+            SHA256_Update(&ctx,ptr,left);
+    }
+
+    ret = SHA256_Final(out,&ctx);
+    
+    return ret;
 
 }
 

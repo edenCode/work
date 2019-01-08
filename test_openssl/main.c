@@ -179,7 +179,7 @@ int main(int argc,const char * argv[])
     printf("\n");
     printf("chiper size : %d \n",ret);
 
-    unsigned char * p = MD5();
+//    unsigned char * p = MD5();
     //printf("MD5         ：%s \n",result);
     
 	return 0;

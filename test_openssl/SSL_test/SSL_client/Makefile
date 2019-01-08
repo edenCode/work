@@ -14,7 +14,7 @@ LDFLAGS =
 INC_DIR = -I. -I../include/ -I../cryptolib
 LIB_DIR = -L. -L../lib/ -L../cryptolib
 
-LIBS	= -lssl -lcrypto -ldl -lstdc++ -lcrylib
+LIBS	= -lcrylib -lssl -lcrypto -ldl -lstdc++ 
 
 SRCS 	= $(wildcard *.cpp)
 OBJS	= $(subst .cpp,.o,$(SRCS))

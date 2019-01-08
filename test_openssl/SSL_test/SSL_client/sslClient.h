@@ -38,7 +38,9 @@ public:
    int load_certfile(string & public_cert,string & private_cert)
    {
         int ret = 0;
-        
+        /* 用于加载根证书*/
+        //ret = SSL_CTX_load_verify_locations();
+
         /* 载入用户的数字证书， 此证书用来发送给客户端。 证书里包含有公钥 */
         if (SSL_CTX_use_certificate_file(s->ctx, public_cert.c_str(), SSL_FILETYPE_PEM) <= 0) {
             ERR_print_errors_fp(stdout);
