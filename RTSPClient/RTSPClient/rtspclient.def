@@ -1,6 +1,0 @@
-EXPORTS
-	create_rtsp_stream
-	
-	destroy_rtsp_stream
-
-	open_rtsp_stream
