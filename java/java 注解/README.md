@@ -3,6 +3,10 @@
 
 ---
 
+#### [**Annatation用法详解**](https://www.cnblogs.com/skywang12345/p/3344137.html)
+
+![](Annatation.jpg)
+
 ### javap用法
   
         javap 用法: javap <options> <classes>
@@ -89,6 +93,77 @@ class Test{
     }
 }
 
+
+
+
+// from  java.lang.Class 
+// 反射方法
+
+    /**
+     * @throws NullPointerException {@inheritDoc}
+     * @since 1.5
+     */
+@SuppressWarnings("unchecked")
+public <A extends Annotation> A getAnnotation(Class<A> annotationClass) {
+
+        // 检查 annotationClass 对象是否为空
+        Objects.requireNonNull(annotationClass);
+
+        return (A) annotationData().annotations.get(annotationClass);
+    }
+
+
+
+
+// Annotations cache
+    @SuppressWarnings("UnusedDeclaration")
+    private volatile transient AnnotationData annotationData;
+
+    private AnnotationData annotationData() {
+        while (true) { // retry loop
+
+            AnnotationData annotationData = this.annotationData;
+
+            /*
+              // Incremented by the VM on each call to JVM TI RedefineClasses() 
+              // that redefines this class or a superclass.
+              private volatile transient int classRedefinedCount = 0; 
+            */
+            int classRedefinedCount = this.classRedefinedCount;
+            if (annotationData != null &&
+                annotationData.redefinedCount == classRedefinedCount) {
+                return annotationData;
+            }
+
+            // 空 创建一个新的 
+            // null or stale annotationData -> optimistically create new instance
+            AnnotationData newAnnotationData = createAnnotationData(classRedefinedCount);
+            // try to install it
+            if (Atomic.casAnnotationData(this, annotationData, newAnnotationData)) {
+                // successfully installed new AnnotationData
+                return newAnnotationData;
+            }
+        }
+}
+
+
+```
+#### $Proxy1.msg
+
+```java
+
+// from $Proxy.java
+public final String msg() {
+        try {
+            return (String)super.h.invoke(this, $Proxy1.m3, null);
+        }
+        catch (Error | RuntimeException error) {
+            throw;
+        }
+        catch (Throwable t) {
+            throw new UndeclaredThrowableException(t);
+        }
+    }
 ```
 
 1. **javap $Proxy0.class**

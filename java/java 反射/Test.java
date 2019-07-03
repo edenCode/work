@@ -8,6 +8,7 @@ class Test{
         //Class clazz;
         // Not import Student.class
         try {
+            System.setProperty("sun.misc.ProxyGenerator.saveGeneratedFiles","true");
             Class clazz = Class.forName("Student");    
             
             System.out.println("Class Name : \n \t" +clazz.getName());
