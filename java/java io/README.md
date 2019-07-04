@@ -11,4 +11,16 @@ FileWriter fw = new FileWriter(f);
 
 //字节流
 FileOutputStream fos = new FileOutputStream(f);
+
+
+// 
+ObjectOutputStream s = new ObjectOutputStream()
+
+// Data 必须实现可序列化接口
+Data d = (Data)d.readObject()
+
+class Data implements Serializable{
+    
+}
+
 ```
